@@ -1,0 +1,563 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Welcome -->
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <h2 class="fw-bold">
+                {{ greeting }}, {{ current_user.username }} 👋
+            </h2>
+
+            <p class="text-muted">
+                {{ today }}
+            </p>
+
+            <p class="mb-0">
+                Stay productive and keep crushing your goals! 🚀
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Statistics -->
+
+    <div class="row">
+
+        <div class="col-lg-4 col-md-6 mb-3">
+
+            <div class="card border-success shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <h5>📋 Total Tasks</h5>
+
+                    <h2>{{ stats.total }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-3">
+
+            <div class="card border-warning shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <h5>🟡 Pending</h5>
+
+                    <h2>{{ stats.pending }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-3">
+
+            <div class="card border-primary shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <h5>✅ Completed</h5>
+
+                    <h2>{{ stats.completed }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3">
+
+            <div class="card border-danger shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <h5>⭐ High Priority</h5>
+
+                    <h2>{{ stats.high_priority }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3">
+
+            <div class="card border-dark shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <h5>🔴 Overdue</h5>
+
+                    <h2>{{ stats.overdue }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Productivity -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between">
+
+                <h4>📈 Productivity</h4>
+
+                <strong>{{ stats.completion_rate }}%</strong>
+
+            </div>
+
+            <div class="progress mt-3" style="height:25px;">
+
+                <div
+                    class="progress-bar bg-success"
+                    style="width: {{ stats.completion_rate }}%;">
+
+                    {{ stats.completion_rate }}%
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- AI Coach -->
+
+    <div class="card shadow-sm border-primary mb-4">
+
+        <div class="card-body">
+
+            <h4>🤖 AI Coach</h4>
+
+            <h5 class="mt-3">
+
+                {{ coach.title }}
+
+            </h5>
+
+            <p class="mb-0">
+
+                {{ coach.message }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Upcoming Deadlines -->
+
+    <div class="card shadow-sm border-warning mb-4">
+
+        <div class="card-body">
+
+            <h4>⏰ Upcoming Deadlines</h4>
+
+            {% if upcoming %}
+
+            <ul class="list-group mt-3">
+
+                {% for task in upcoming %}
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                    <strong>
+
+                        {{ task.title }}
+
+                    </strong>
+
+                    {% if task.days < 0 %}
+
+                    <span class="badge bg-danger">
+
+                        {{ -task.days }} day(s) overdue
+
+                    </span>
+
+                    {% elif task.days == 0 %}
+
+                    <span class="badge bg-danger">
+
+                        Due Today
+
+                    </span>
+
+                    {% elif task.days == 1 %}
+
+                    <span class="badge bg-warning text-dark">
+
+                        Tomorrow
+
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-success">
+
+                        {{ task.days }} days left
+
+                    </span>
+
+                    {% endif %}
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+            {% else %}
+
+            <p class="text-muted mb-0">
+
+                🎉 No upcoming deadlines.
+
+            </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- Charts -->
+
+    <div class="row">
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h4>📊 Task Status</h4>
+
+                    <div style="height:300px">
+
+                        <canvas id="statusChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h4>📁 Categories</h4>
+
+                    <div style="height:300px">
+
+                        <canvas id="categoryChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+        <!-- Quick Actions -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-4 mb-3">
+
+            <a
+                href="{{ url_for('tasks.create_task_page') }}"
+                class="btn btn-success w-100">
+
+                ➕ New Task
+
+            </a>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <a
+                href="{{ url_for('tasks.my_tasks') }}"
+                class="btn btn-primary w-100">
+
+                📋 My Tasks
+
+            </a>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <a
+                href="{{ url_for('ai.planner') }}"
+                class="btn btn-dark w-100">
+
+                🤖 AI Planner
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <!-- Recent Tasks -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h3>
+
+            📋 Recent Tasks
+
+        </h3>
+
+        <a
+            href="{{ url_for('tasks.my_tasks') }}"
+            class="btn btn-outline-primary">
+
+            View All →
+
+        </a>
+
+    </div>
+
+    {% if tasks %}
+
+    <div class="row">
+
+        {% for task in tasks %}
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <h5 class="fw-bold">
+
+                        {{ task.title }}
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        {{ task.description }}
+
+                    </p>
+
+                    <div class="mb-3">
+
+                        <span class="badge bg-primary">
+
+                            {{ task.category }}
+
+                        </span>
+
+                        {% if task.priority == "High" %}
+
+                        <span class="badge bg-danger">
+
+                            {{ task.priority }}
+
+                        </span>
+
+                        {% elif task.priority == "Medium" %}
+
+                        <span class="badge bg-warning text-dark">
+
+                            {{ task.priority }}
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-success">
+
+                            {{ task.priority }}
+
+                        </span>
+
+                        {% endif %}
+
+                        {% if task.status == "Completed" %}
+
+                        <span class="badge bg-success">
+
+                            ✔ {{ task.status }}
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-secondary">
+
+                            {{ task.status }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    {% if task.due_date %}
+
+                    <p class="mb-0">
+
+                        📅 Due:
+                        <strong>{{ task.due_date }}</strong>
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info">
+
+        <h5>
+
+            No Tasks Yet 🚀
+
+        </h5>
+
+        <p class="mb-0">
+
+            Create your first task to start tracking your productivity.
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+new Chart(
+    document.getElementById("statusChart"),
+    {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: [
+
+                "Completed",
+
+                "Pending"
+
+            ],
+
+            datasets: [
+
+                {
+
+                    data: [
+
+                        {{ stats.completed }},
+
+                        {{ stats.pending }}
+
+                    ]
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false
+
+        }
+
+    }
+);
+
+new Chart(
+    document.getElementById("categoryChart"),
+    {
+
+        type: "pie",
+
+        data: {
+
+            labels:            {{ category_labels | tojson }},
+
+            datasets: [
+
+                {
+
+                    data: {{ category_counts | tojson }}
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false
+
+        }
+
+    }
+);
+
+</script>
+
+{% endblock %}

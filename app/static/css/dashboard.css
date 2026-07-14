@@ -1,0 +1,15 @@
+.dashboard-card {
+    border-radius: 15px;
+}
+
+.dashboard-title {
+    font-weight: bold;
+}
+
+.stats-card {
+    transition: 0.3s;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}

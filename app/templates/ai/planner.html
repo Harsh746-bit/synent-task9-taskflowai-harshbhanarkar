@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Planner
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg border-0">
+
+        <div class="card-body">
+
+            <div class="text-center mb-4">
+
+                <h1 class="text-primary">
+
+                    🤖 AI Planner
+
+                </h1>
+
+                <p class="text-muted">
+
+                    Enter your goal and let AI create a complete action plan.
+
+                </p>
+
+            </div>
+
+            <form method="POST">
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+
+                        Your Goal
+
+                    </label>
+
+                    <textarea
+                        class="form-control"
+                        rows="5"
+                        name="goal"
+                        placeholder="Example: Learn Flask in 10 days"
+                        required></textarea>
+
+                </div>
+
+                <div class="text-center">
+
+                    <button
+                        class="btn btn-primary btn-lg">
+
+                        ✨ Generate AI Plan
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

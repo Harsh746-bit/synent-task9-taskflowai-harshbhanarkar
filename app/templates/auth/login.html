@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row justify-content-center align-items-center" style="min-height:90vh;">
+
+        <div class="col-lg-5 col-md-7">
+
+            <div class="card shadow-lg border-0 p-4">
+
+                <div class="text-center mb-4">
+
+                    <div style="font-size:65px;">
+                        🤖
+                    </div>
+
+                    <h1 class="fw-bold mt-2">
+
+                        TaskFlowAI
+
+                    </h1>
+
+                    <p class="text-muted">
+
+                        Welcome back! Sign in to continue.
+
+                    </p>
+
+                </div>
+
+                <form method="POST">
+
+                    {{ form.hidden_tag() }}
+
+                    <div class="mb-3">
+
+                        {{ form.email.label(class="form-label fw-semibold") }}
+
+                        {{ form.email(
+                            class="form-control form-control-lg",
+                            placeholder="Enter your email"
+                        ) }}
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        {{ form.password.label(class="form-label fw-semibold") }}
+
+                        {{ form.password(
+                            class="form-control form-control-lg",
+                            placeholder="Enter your password"
+                        ) }}
+
+                    </div>
+
+                    <div class="d-grid">
+
+                        {{ form.submit(
+                            class="btn btn-success btn-lg"
+                        ) }}
+
+                    </div>
+
+                </form>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+
+                    <span class="text-muted">
+
+                        Don't have an account?
+
+                    </span>
+
+                    <br>
+
+                    <a
+                        href="{{ url_for('auth.register') }}"
+                        class="fw-bold text-decoration-none">
+
+                        Create Account →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

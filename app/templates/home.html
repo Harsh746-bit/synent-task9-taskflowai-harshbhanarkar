@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<div class="text-center mt-5">
+
+    <h1 class="display-4 fw-bold">
+
+        🚀 TaskFlow AI
+
+    </h1>
+
+    <p class="lead mt-3">
+
+        Organize your work smarter with AI.
+
+    </p>
+
+    {% if current_user.is_authenticated %}
+
+        <a href="{{ url_for('tasks.dashboard') }}"
+           class="btn btn-success btn-lg">
+
+            Go to Dashboard
+
+        </a>
+
+    {% else %}
+
+        <a href="{{ url_for('auth.register') }}"
+           class="btn btn-primary btn-lg">
+
+            Get Started
+
+        </a>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row justify-content-center align-items-center" style="min-height:90vh;">
+
+        <div class="col-lg-6 col-md-8">
+
+            <div class="card shadow-lg border-0 p-4">
+
+                <div class="text-center mb-4">
+
+                    <div style="font-size:65px;">
+
+                        🚀
+
+                    </div>
+
+                    <h1 class="fw-bold mt-2">
+
+                        Join TaskFlowAI
+
+                    </h1>
+
+                    <p class="text-muted">
+
+                        Create your account and start managing tasks with AI.
+
+                    </p>
+
+                </div>
+
+                <form method="POST">
+
+                    {{ form.hidden_tag() }}
+
+                    <div class="mb-3">
+
+                        {{ form.username.label(class="form-label fw-semibold") }}
+
+                        {{ form.username(
+                            class="form-control form-control-lg",
+                            placeholder="Enter your username"
+                        ) }}
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        {{ form.email.label(class="form-label fw-semibold") }}
+
+                        {{ form.email(
+                            class="form-control form-control-lg",
+                            placeholder="Enter your email"
+                        ) }}
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        {{ form.password.label(class="form-label fw-semibold") }}
+
+                        {{ form.password(
+                            class="form-control form-control-lg",
+                            placeholder="Create a password"
+                        ) }}
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        {{ form.confirm_password.label(class="form-label fw-semibold") }}
+
+                        {{ form.confirm_password(
+                            class="form-control form-control-lg",
+                            placeholder="Confirm your password"
+                        ) }}
+
+                    </div>
+
+                    <div class="d-grid">
+
+                        {{ form.submit(
+                            class="btn btn-success btn-lg"
+                        ) }}
+
+                    </div>
+
+                </form>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+
+                    <span class="text-muted">
+
+                        Already have an account?
+
+                    </span>
+
+                    <br>
+
+                    <a
+                        href="{{ url_for('auth.login') }}"
+                        class="fw-bold text-decoration-none">
+
+                        Login →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

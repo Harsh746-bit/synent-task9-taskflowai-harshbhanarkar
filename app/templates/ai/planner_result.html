@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Planner Result
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg">
+
+        <div class="card-body">
+
+            <h2 class="text-primary text-center">
+
+                🤖 Your AI Plan
+
+            </h2>
+
+            <hr>
+
+            <h4>
+
+                🎯 Goal
+
+            </h4>
+
+            <p>
+
+                {{ result.goal }}
+
+            </p>
+
+            <div class="row text-center mt-4">
+
+                <div class="col-md-6">
+
+                    <div class="card border-success">
+
+                        <div class="card-body">
+
+                            <h6>
+
+                                Difficulty
+
+                            </h6>
+
+                            <h5>
+
+                                {{ result.difficulty }}
+
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="card border-primary">
+
+                        <div class="card-body">
+
+                            <h6>
+
+                                Estimated Time
+
+                            </h6>
+
+                            <h5>
+
+                                {{ result.estimated_time }}
+
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <h4>
+
+                📅 Timeline
+
+            </h4>
+
+            <ul class="list-group">
+
+                {% for item in result.timeline %}
+
+                <li class="list-group-item">
+
+                    ✅ {{ item }}
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+            <div class="alert alert-info mt-4">
+
+                <h5>
+
+                    💡 AI Tips
+
+                </h5>
+
+                <p class="mb-0">
+
+                    {{ result.tips }}
+
+                </p>
+
+            </div>
+
+            <div class="text-center">
+
+                <!-- <a
+                    href="{{ url_for('ai.planner') }}"
+                    class="btn btn-success">
+
+                    Generate Another Plan
+
+                </a> -->
+
+            </div>
+            <div class="text-center mt-4">
+
+    <form
+        action="{{ url_for('ai.save_plan') }}"
+        method="POST">
+
+        <button
+            type="submit"
+            class="btn btn-success btn-lg">
+
+            ➕ Save as Task
+
+        </button>
+
+    </form>
+
+    <a
+        href="{{ url_for('ai.planner') }}"
+        class="btn btn-outline-primary mt-3">
+
+        🔄 Generate Another Plan
+
+    </a>
+
+</div>
+            
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

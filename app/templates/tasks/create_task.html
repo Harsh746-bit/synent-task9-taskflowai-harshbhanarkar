@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Task
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <h2 class="mb-4">
+                ➕ Create New Task
+            </h2>
+
+            <form method="POST">
+
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+
+                    {{ form.title.label(class="form-label") }}
+
+                    {{ form.title(class="form-control") }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    {{ form.description.label(class="form-label") }}
+
+                    {{ form.description(class="form-control", rows="4") }}
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.category.label(class="form-label") }}
+
+                        {{ form.category(class="form-select") }}
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.priority.label(class="form-label") }}
+
+                        {{ form.priority(class="form-select") }}
+
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+
+                    {{ form.due_date.label(class="form-label") }}
+
+                    {{ form.due_date(class="form-control") }}
+
+                </div>
+
+                <div class="d-grid">
+
+                    {{ form.submit(class="btn btn-success btn-lg") }}
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
