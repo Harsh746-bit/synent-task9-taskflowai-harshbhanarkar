@@ -16,6 +16,10 @@
 
 > **Note:** This application is hosted on Render's free tier. The first request after inactivity may take **30–60 seconds** while the server wakes up.
 
+## 🎥 Demo Video
+
+[![Watch the Demo]()](https://www.youtube.com/watch?v=dQw4w9WgXcQ)](https://youtu.be/jdXtHC8Zxnw?si=Us5rIKp5NrpfTVG8)
+
 ## 📌 Overview
 
 TaskFlowAI is a modern AI-powered productivity web application developed during the **Synent Technologies Python Development Internship**.
