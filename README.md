@@ -10,6 +10,12 @@
 
 ---
 
+## 🌐 Live Demo
+
+🔗 https://taskflowai-jgty.onrender.com
+
+> **Note:** This application is hosted on Render's free tier. The first request after inactivity may take **30–60 seconds** while the server wakes up.
+
 ## 📌 Overview
 
 TaskFlowAI is a modern AI-powered productivity web application developed during the **Synent Technologies Python Development Internship**.
